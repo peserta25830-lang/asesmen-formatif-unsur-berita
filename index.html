@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Formatif Pertemuan 2 - Teks Berita</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary: #06b6d4;
+            --accent: #f59e0b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --bg-main: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --radius: 16px;
+            --shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header Bar */
+        header {
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: white;
+            padding: 1.25rem 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area h1 {
+            font-size: 1.4rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #60a5fa, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tag-sma {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Container Layout */
+        main {
+            flex: 1;
+            max-width: 1100px;
+            width: 100%;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        /* Welcome / Start Screen */
+        .welcome-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            max-width: 650px;
+            margin: 2rem auto;
+        }
+
+        .welcome-icon {
+            font-size: 4rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .welcome-card h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.75rem;
+            color: var(--text-main);
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 0.9rem 2.5rem;
+            font-size: 1.05rem;
+            font-weight: 700;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            width: 100%;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Quiz Layout Grid */
+        .quiz-grid {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+            .quiz-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        /* Question Header */
+        .q-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .q-badge {
+            background: #e0e7ff;
+            color: #3730a3;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+        }
+
+        .type-badge {
+            background: #fef3c7;
+            color: #92400e;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+        }
+
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* Options */
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .option-item:hover {
+            border-color: #93c5fd;
+            background: #f8fafc;
+        }
+
+        .option-item.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .option-prefix {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 12px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .option-item.selected .option-prefix {
+            background: var(--primary);
+            color: white;
+        }
+
+        .option-text {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            line-height: 1.4;
+        }
+        
+        /* Textarea for Essay */
+        .essay-input {
+            width: 100%;
+            height: 150px;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        .essay-input:focus {
+            border-color: var(--primary);
+        }
+
+        /* Navigation Controls */
+        .nav-controls {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            border-top: 1px solid var(--border);
+            padding-top: 1.5rem;
+        }
+
+        .btn-nav {
+            padding: 0.75rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border);
+            background: white;
+            color: var(--text-main);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .btn-nav:hover:not(:disabled) {
+            background: #f1f5f9;
+        }
+
+        .btn-nav:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .btn-submit {
+            background: var(--success);
+            color: white;
+            border: none;
+        }
+
+        .btn-submit:hover {
+            background: #059669;
+        }
+
+        /* Sidebar / Question Palette */
+        .sidebar-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .palette-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .palette-btn {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .palette-btn:hover {
+            border-color: var(--primary);
+        }
+
+        .palette-btn.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+
+        .palette-btn.answered {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .progress-bar-container {
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+        }
+
+        .progress-track {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        /* Result View */
+        .result-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .score-circle {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .score-num {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+
+        .score-total {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-box {
+            background: var(--bg-main);
+            padding: 1rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .stat-box val {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+
+        .stat-correct val { color: var(--success); }
+        .stat-wrong val { color: var(--danger); }
+        .stat-name val { color: var(--primary); font-size: 1.1rem; }
+
+        .status-sending {
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        /* Review Section */
+        .review-section {
+            margin-top: 2.5rem;
+        }
+
+        .review-item {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 1rem;
+            background: white;
+        }
+
+        .review-item.is-correct {
+            border-left: 5px solid var(--success);
+        }
+
+        .review-item.is-wrong {
+            border-left: 5px solid var(--danger);
+        }
+
+        .review-item.is-essay {
+            border-left: 5px solid var(--accent);
+        }
+
+        .review-q-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .ans-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+
+        .ans-correct { background: #d1fae5; color: #065f46; }
+        .ans-user { background: #fee2e2; color: #991b1b; }
+        .ans-essay { background: #fef3c7; color: #92400e; }
+
+        /* Footer */
+        footer {
+            background: #0f172a;
+            color: #94a3b8;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            margin-top: auto;
+            border-top: 1px solid #1e293b;
+            font-size: 0.9rem;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-area">
+                <h1><i class="fa-solid fa-graduation-cap"></i> E-Kuis Teks Berita</h1>
+            </div>
+            <div class="tag-sma">
+                Bahasa Indonesia • Asesmen Formatif
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main>
+        <!-- 1. Start Screen -->
+        <div id="screen-start" class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fa-solid fa-file-pen"></i>
+            </div>
+            <h2>Asesmen Formatif Pertemuan 2</h2>
+            <p>Uji pemahaman Anda mengenai struktur dan unsur-unsur Teks Berita.</p>
+            
+            <div class="input-group">
+                <label for="student-name"><i class="fa-solid fa-user"></i> Nama Lengkap Siswa:</label>
+                <input type="text" id="student-name" placeholder="Masukkan nama Anda..." autocomplete="off">
+            </div>
+
+            <button class="btn-start" onclick="startQuiz()">
+                <i class="fa-solid fa-play"></i> Mulai Kuis Interaktif
+            </button>
+        </div>
+
+        <!-- 2. Quiz Screen -->
+        <div id="screen-quiz" class="quiz-grid hidden">
+            <div class="card">
+                <div class="q-header">
+                    <span class="q-badge" id="q-number-badge">Soal 1 dari 10</span>
+                    <span class="type-badge" id="q-type-badge">Pilihan Ganda</span>
+                </div>
+
+                <div class="question-text" id="q-text"></div>
+
+                <div class="options-list" id="options-container"></div>
+
+                <div class="nav-controls">
+                    <button class="btn-nav" id="btn-prev" onclick="navigate(-1)">
+                        <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+                    </button>
+                    <button class="btn-nav btn-primary" id="btn-next" onclick="navigate(1)">
+                        Berikutnya <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                    <button class="btn-nav btn-submit hidden" id="btn-finish" onclick="confirmFinish()">
+                        <i class="fa-solid fa-check-circle"></i> Selesai & Kirim
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar / Palette -->
+            <div class="card sidebar-card">
+                <h3><span><i class="fa-solid fa-th"></i> Navigasi Soal</span></h3>
+
+                <div class="progress-bar-container">
+                    <div class="progress-info">
+                        <span>Progres Dijawab</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                    <div class="progress-track">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                </div>
+
+                <div class="palette-grid" id="palette-grid"></div>
+            </div>
+        </div>
+
+        <!-- 3. Result Screen -->
+        <div id="screen-result" class="result-card hidden">
+            <div class="result-header">
+                <h2><i class="fa-solid fa-trophy" style="color: var(--accent);"></i> Hasil Evaluasi</h2>
+                <p style="color: var(--text-muted); margin-top: 4px;">Asesmen Formatif Pertemuan 2</p>
+            </div>
+
+            <div class="score-circle">
+                <span class="score-num" id="final-score">0</span>
+                <span class="score-total">NILAI PILIHAN GANDA</span>
+            </div>
+            
+            <div id="sync-status" class="status-sending">
+                <i class="fa-solid fa-spinner fa-spin"></i> Mengirim nilai ke Google Sheets...
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box stat-name">
+                    <span style="font-size:0.8rem; color:var(--text-muted);">SISWA</span>
+                    <val id="res-student-name">-</val>
+                </div>
+                <div class="stat-box stat-correct">
+                    <span style="font-size:0.8rem; color:var(--text-muted);">PG BENAR</span>
+                    <val id="res-correct-count">0</val>
+                </div>
+                <div class="stat-box stat-wrong">
+                    <span style="font-size:0.8rem; color:var(--text-muted);">PG SALAH</span>
+                    <val id="res-wrong-count">0</val>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-bottom: 2rem;">
+                <button class="btn-start" style="width: auto; padding: 0.8rem 2rem;" onclick="restartQuiz()">
+                    <i class="fa-solid fa-rotate-right"></i> Coba Lagi
+                </button>
+            </div>
+
+            <div class="review-section">
+                <h3 style="margin-bottom: 1rem;"><i class="fa-solid fa-list-check"></i> Pembahasan & Rekap Jawaban</h3>
+                <div id="review-container"></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 E-Pembelajaran Bahasa Indonesia.</p>
+    </footer>
+
+    <script>
+        // URL Web App Google Apps Script Anda
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz2xVqSrzgQBed-4pCziRJhkVAvNT-QYGHEiB1uVQEx88tTp5vtobpmZ2TLenwPHaZJ/exec";
+
+        const quizData = [
+            { id: 1, type: "mcq", question: "Bagian teks berita yang berisi ringkasan inti peristiwa di awal disebut ...", options: ["Ekor berita", "Teras berita/lead", "Judul", "Tubuh berita"], key: 1 },
+            { id: 2, type: "mcq", question: "Unsur berita yang menjawab pertanyaan “siapa” adalah ...", options: ["What", "Who", "When", "Where"], key: 1 },
+            { id: 3, type: "mcq", question: "Bagian berita yang berisi penjelasan rinci/lanjutan dari teras berita disebut ...", options: ["Judul", "Tubuh berita", "Ekor berita", "Kepala berita"], key: 1 },
+            { id: 4, type: "mcq", question: "Struktur berita secara umum disusun dengan pola ...", options: ["Piramida terbalik", "Piramida biasa", "Alur mundur", "Sebab-akibat"], key: 0 },
+            { id: 5, type: "mcq", question: "Unsur berita “mengapa” (why) biasanya menjelaskan tentang ...", options: ["Waktu kejadian", "Pelaku peristiwa", "Sebab terjadinya peristiwa", "Tempat kejadian"], key: 2 },
+            { id: 6, type: "essay", question: "Sebutkan tiga bagian struktur teks berita!", keyText: "Kepala berita (Teras berita/Lead), Tubuh berita, dan Ekor berita." },
+            { id: 7, type: "essay", question: "Apa kepanjangan dari ADIKSIMBA?", keyText: "Apa, Di mana, Kapan, Siapa, Mengapa, Bagaimana." },
+            { id: 8, type: "essay", question: "Jelaskan mengapa struktur berita disusun dalam pola piramida terbalik!", keyText: "Agar informasi yang paling penting diletakkan di awal untuk segera diketahui pembaca." },
+            { id: 9, type: "essay", question: "Bacalah kalimat berikut: <i>“Kebakaran terjadi di Pasar Baru, Senin (12/8), akibat korsleting listrik.”</i><br><br>Sebutkan unsur berita apa saja yang terdapat dalam kalimat tersebut!", keyText: "Apa (Kebakaran), Di mana (Pasar Baru), Kapan (Senin, 12/8), Mengapa/Bagaimana (akibat korsleting listrik)." },
+            { id: 10, type: "essay", question: "Mengapa penting bagi penulis berita untuk memahami struktur dan unsur berita sebelum menulis?", keyText: "Agar informasi yang disampaikan menjadi padu, akurat, faktual, lengkap, dan mudah dipahami oleh pembaca." }
+        ];
+
+        let currentQuestion = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let studentName = "";
+        const letterPrefixes = ['A', 'B', 'C', 'D'];
+
+        const screenStart = document.getElementById('screen-start');
+        const screenQuiz = document.getElementById('screen-quiz');
+        const screenResult = document.getElementById('screen-result');
+
+        function startQuiz() {
+            const nameInput = document.getElementById('student-name').value.trim();
+            if (!nameInput) {
+                alert('Silakan masukkan nama Anda terlebih dahulu.');
+                return;
+            }
+            studentName = nameInput;
+            screenStart.classList.add('hidden');
+            screenQuiz.classList.remove('hidden');
+            renderPalette();
+            loadQuestion(0);
+        }
+
+        function renderPalette() {
+            const grid = document.getElementById('palette-grid');
+            grid.innerHTML = '';
+            quizData.forEach((q, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'palette-btn';
+                btn.innerText = idx + 1;
+                btn.id = `palette-btn-${idx}`;
+                btn.onclick = () => loadQuestion(idx);
+                grid.appendChild(btn);
+            });
+        }
+
+        function loadQuestion(index) {
+            currentQuestion = index;
+            const data = quizData[index];
+
+            document.getElementById('q-number-badge').innerText = `Soal ${index + 1} dari ${quizData.length}`;
+            document.getElementById('q-type-badge').innerText = data.type === 'mcq' ? 'Pilihan Ganda' : 'Isian/Uraian';
+            document.getElementById('q-text').innerHTML = data.question;
+
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            if (data.type === 'mcq') {
+                data.options.forEach((optText, optIdx) => {
+                    const optDiv = document.createElement('div');
+                    optDiv.className = `option-item ${userAnswers[index] === optIdx ? 'selected' : ''}`;
+                    optDiv.onclick = () => selectOption(optIdx);
+
+                    optDiv.innerHTML = `
+                        <div class="option-prefix">${letterPrefixes[optIdx]}</div>
+                        <div class="option-text">${optText}</div>
+                    `;
+                    optionsContainer.appendChild(optDiv);
+                });
+            } else {
+                const textarea = document.createElement('textarea');
+                textarea.className = 'essay-input';
+                textarea.placeholder = 'Ketik jawaban Anda di sini...';
+                textarea.value = userAnswers[index] || '';
+                textarea.oninput = (e) => {
+                    userAnswers[currentQuestion] = e.target.value;
+                    updatePaletteUI();
+                    updateProgressBar();
+                };
+                optionsContainer.appendChild(textarea);
+            }
+
+            document.getElementById('btn-prev').disabled = (index === 0);
+            if (index === quizData.length - 1) {
+                document.getElementById('btn-next').classList.add('hidden');
+                document.getElementById('btn-finish').classList.remove('hidden');
+            } else {
+                document.getElementById('btn-next').classList.remove('hidden');
+                document.getElementById('btn-finish').classList.add('hidden');
+            }
+
+            updatePaletteUI();
+        }
+
+        function selectOption(optIdx) {
+            userAnswers[currentQuestion] = optIdx;
+            const items = document.querySelectorAll('.option-item');
+            items.forEach((item, idx) => {
+                if (idx === optIdx) item.classList.add('selected');
+                else item.classList.remove('selected');
+            });
+            updatePaletteUI();
+            updateProgressBar();
+        }
+
+        function updatePaletteUI() {
+            quizData.forEach((q, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                btn.className = 'palette-btn';
+                let isAnswered = q.type === 'mcq' ? userAnswers[idx] !== null : userAnswers[idx] && userAnswers[idx].trim() !== '';
+                if (isAnswered) btn.classList.add('answered');
+                if (idx === currentQuestion) btn.classList.add('active');
+            });
+        }
+
+        function updateProgressBar() {
+            let answeredCount = 0;
+            quizData.forEach((q, idx) => {
+                if (q.type === 'mcq' && userAnswers[idx] !== null) answeredCount++;
+                if (q.type === 'essay' && userAnswers[idx] && userAnswers[idx].trim() !== '') answeredCount++;
+            });
+            const percent = Math.round((answeredCount / quizData.length) * 100);
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+            document.getElementById('progress-percent').innerText = `${percent}%`;
+        }
+
+        function navigate(direction) {
+            const newIndex = currentQuestion + direction;
+            if (newIndex >= 0 && newIndex < quizData.length) loadQuestion(newIndex);
+        }
+
+        function confirmFinish() {
+            let answeredCount = 0;
+            quizData.forEach((q, idx) => {
+                if (q.type === 'mcq' && userAnswers[idx] !== null) answeredCount++;
+                if (q.type === 'essay' && userAnswers[idx] && userAnswers[idx].trim() !== '') answeredCount++;
+            });
+
+            if (answeredCount < quizData.length) {
+                if (!confirm(`Anda baru menjawab ${answeredCount} dari ${quizData.length} soal. Yakin ingin mengakhiri kuis?`)) return;
+            }
+            calculateResult();
+        }
+
+        function calculateResult() {
+            let correctCount = 0;
+            let mcqCount = 0;
+            let essayAnswersList = [];
+
+            quizData.forEach((q, idx) => {
+                if (q.type === 'mcq') {
+                    mcqCount++;
+                    if (userAnswers[idx] === q.key) correctCount++;
+                } else {
+                    essayAnswersList.push({
+                        soal: q.id,
+                        jawaban: userAnswers[idx] || ""
+                    });
+                }
+            });
+
+            const score = Math.round((correctCount / mcqCount) * 100);
+
+            document.getElementById('res-student-name').innerText = studentName;
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('res-correct-count').innerText = correctCount;
+            document.getElementById('res-wrong-count').innerText = mcqCount - correctCount;
+
+            renderReview();
+
+            screenQuiz.classList.add('hidden');
+            screenResult.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Pengiriman Data ke Google Sheets
+            const syncStatus = document.getElementById('sync-status');
+            syncStatus.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim data ke Google Sheets...';
+
+            const payload = {
+                nama: studentName,
+                score: score,
+                correct: correctCount,
+                wrong: mcqCount - correctCount,
+                essayAnswers: essayAnswersList,
+                allAnswers: userAnswers
+            };
+
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                syncStatus.innerHTML = '<i class="fa-solid fa-circle-check" style="color: var(--success);"></i> Data berhasil terdata di Google Sheets!';
+            }).catch(err => {
+                console.error("Gagal mengirim data:", err);
+                syncStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation" style="color: var(--danger);"></i> Gagal mengirim data ke Spreadsheet.';
+            });
+        }
+
+        function renderReview() {
+            const container = document.getElementById('review-container');
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const item = document.createElement('div');
+
+                if (q.type === 'mcq') {
+                    const isCorrect = userAns === q.key;
+                    item.className = `review-item ${isCorrect ? 'is-correct' : 'is-wrong'}`;
+                    const userAnsText = userAns !== null ? `${letterPrefixes[userAns]}. ${q.options[userAns]}` : 'Tidak dijawab';
+                    const correctAnsText = `${letterPrefixes[q.key]}. ${q.options[q.key]}`;
+
+                    item.innerHTML = `
+                        <div class="review-q-title">Soal ${idx + 1} (PG): ${q.question}</div>
+                        <div style="margin-top: 0.5rem; font-size: 0.95rem;">
+                            <div>
+                                <span class="ans-badge ${isCorrect ? 'ans-correct' : 'ans-user'}">
+                                    ${isCorrect ? 'Jawaban Anda Benar' : 'Jawaban Anda'}
+                                </span>
+                                ${userAnsText}
+                            </div>
+                            ${!isCorrect ? `
+                                <div style="margin-top: 4px;">
+                                    <span class="ans-badge ans-correct">Kunci Jawaban</span>
+                                    ${correctAnsText}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    item.className = `review-item is-essay`;
+                    const userAnsText = (userAns && userAns.trim() !== '') ? userAns : 'Tidak dijawab';
+
+                    item.innerHTML = `
+                        <div class="review-q-title">Soal ${idx + 1} (Uraian): ${q.question}</div>
+                        <div style="margin-top: 0.5rem; font-size: 0.95rem;">
+                            <div>
+                                <span class="ans-badge ans-essay">Jawaban Siswa</span>
+                                <p style="margin-top: 6px; padding-left: 8px; border-left: 3px solid #cbd5e1; font-style: italic;">
+                                    "${userAnsText}"
+                                </p>
+                            </div>
+                            <div style="margin-top: 10px;">
+                                <span class="ans-badge ans-correct">Referensi Jawaban Guru</span>
+                                <p style="margin-top: 6px; padding-left: 8px; border-left: 3px solid #10b981; color: #064e3b;">
+                                    ${q.keyText}
+                                </p>
+                            </div>
+                        </div>
+                    `;
+                }
+                container.appendChild(item);
+            });
+        }
+
+        function restartQuiz() {
+            userAnswers = new Array(quizData.length).fill(null);
+            currentQuestion = 0;
+            screenResult.classList.add('hidden');
+            screenStart.classList.remove('hidden');
+            document.getElementById('progress-fill').style.width = '0%';
+            document.getElementById('progress-percent').innerText = '0%';
+        }
+    </script>
+</body>
+</html>
